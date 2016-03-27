@@ -1,25 +1,22 @@
 package com.csc.light_file_manager;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.*;
 import android.webkit.MimeTypeMap;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.csc.light_file_manager.items.Item;
 import com.csc.light_file_manager.items.ParentItem;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,10 +49,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ItemViewHolder> {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
                 if (item != null) {
-                    MenuItem open = menu.add("Открыть");
+                    MenuItem open = menu.add(context.getString(R.string.open));
                     open.setOnMenuItemClickListener(onOpen);
-                    MenuItem delete = menu.add("Удалить");
-                    MenuItem rename = menu.add("Переименовать");
+                    MenuItem delete = menu.add(context.getString(R.string.delete));
+                    delete.setOnMenuItemClickListener(onDelete);
+                    MenuItem rename = menu.add(context.getString(R.string.rename));
+                    rename.setOnMenuItemClickListener(onRename);
                 }
             }
         };
@@ -64,28 +63,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ItemViewHolder> {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 activity.onMyItemClick(ItemViewHolder.this.itemView, ItemViewHolder.this.getAdapterPosition());
-//                File f = ItemViewHolder.this.item.getFile();
-//                if (f.isDirectory()) {
-////                    recyclerView.getLayoutManager().scrollToPosition(0);
-//                    activity.showDir(f);
-//                    //maybe scroll back when back
-//                } else {
-//                    try {
-//                        Context context = RVAdapter.this.context;
-//
-//                        String mimeType = Utils.getMimeType(f);
-//                        if (mimeType == null) {
-//                            throw new NullPointerException();
-//                        }
-//                        final Intent intent = new Intent(Intent.ACTION_VIEW);
-//                        intent.setDataAndType(Uri.fromFile(f), mimeType);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        context.startActivity(intent);
-//                    } catch (Exception e) {
-//                        Toast.makeText(context, "No handler for this type of file.", Toast.LENGTH_LONG).show();
-//                    }
-//                }
-
                 return true;
             }
         };
@@ -93,10 +70,22 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ItemViewHolder> {
         private final MenuItem.OnMenuItemClickListener onDelete = new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                File f = ItemViewHolder.this.item.getFile();
-                File parent = f.getParentFile();
-                //f.delete(); alert dialog
-                activity.showDir(parent);
+                final File f = ItemViewHolder.this.item.getFile();
+                final File parent = f.getParentFile();
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setTitle(context.getString(R.string.delete))
+                        .setMessage(context.getString(R.string.element_will_be_deleted) + f.getName())
+                        .setCancelable(true)
+                        .setPositiveButton(context.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                boolean deleted = f.delete();
+                                if (deleted) {
+                                    activity.showDir(parent);
+                                }
+                            }
+                        });
+                builder.create().show();
                 return true;
             }
         };
@@ -104,10 +93,25 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ItemViewHolder> {
         private final MenuItem.OnMenuItemClickListener onRename = new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                File f = ItemViewHolder.this.item.getFile();
-                File parent = f.getParentFile();
-                //f.renameTo(); alert dialog
-                activity.showDir(ItemViewHolder.this.item.getFile().getParentFile());
+                final File f = ItemViewHolder.this.item.getFile();
+                final File parent = f.getParentFile();
+                final EditText editText = new EditText(context);
+                editText.setText(f.getName());
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setTitle(context.getString(R.string.rename))
+                        .setMessage(context.getString(R.string.element_will_be_renamed) + f.getName())
+                        .setCancelable(true)
+                        .setView(editText)
+                        .setPositiveButton(context.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                boolean renamed = f.renameTo(new File(parent, editText.getText().toString()));
+                                if (renamed) {
+                                    activity.showDir(parent);
+                                }
+                            }
+                        });
+                builder.create().show();
                 return true;
             }
         };
@@ -152,24 +156,17 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ItemViewHolder> {
         }
 
         try {
-            if (item.getFile().isFile()) {
+            File file = item.getFile();
+            if (file.isFile()) {
                 final Intent intent = new Intent(Intent.ACTION_VIEW);
                 String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(item.getName().substring(item.getName().lastIndexOf(".") + 1));
-                intent.setData(Uri.fromFile(item.getFile()));
-                intent.setType(mimeType);
-                final List<ResolveInfo> matches = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-                if (matches.size() == 1) {
-                    holder.icon.setImageDrawable(matches.get(0).loadIcon(context.getPackageManager()));
-                    return;
-                }
-//            for (ResolveInfo match : matches) {
-//                final Drawable icon = match.loadIcon(context.getPackageManager());
-//                holder.icon.setImageDrawable(icon);
-//                return;
-//            }
+                intent.setDataAndType(Uri.fromFile(file), mimeType);
+                final ResolveInfo defaultResolution = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                holder.icon.setImageDrawable(defaultResolution.loadIcon(context.getPackageManager()));
+                return;
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         holder.icon.setImageResource(item.getImage());
     }

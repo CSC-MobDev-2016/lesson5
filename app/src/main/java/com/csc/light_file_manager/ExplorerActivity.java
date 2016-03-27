@@ -1,6 +1,5 @@
 package com.csc.light_file_manager;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -28,6 +27,8 @@ public class ExplorerActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     private final String root = "/";
+    private final String STATE_PATH = "STATE_PATH";
+    String currentPath = root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,30 +45,18 @@ public class ExplorerActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 ExplorerActivity.this.onMyItemClick(view, position);
-//                Item item = adapter.getItem(position);
-//                if (item.getFile().isDirectory()) {
-//                    recyclerView.getLayoutManager().scrollToPosition(0);
-//                    showDir(item.getFile());
-//                    //maybe scroll back when back
-//                }
-//                else {
-//                    try {
-//                        String mimeType = Utils.getMimeType(item.getFile());
-//                        if (mimeType == null) { throw new NullPointerException();}
-//                        final Intent intent = new Intent(Intent.ACTION_VIEW);
-//                        intent.setDataAndType(Uri.fromFile(item.getFile()), mimeType);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        getApplicationContext().startActivity(intent);
-//                    } catch (Exception e) {
-//                        Toast.makeText(getApplicationContext(), "No handler for this type of file.", Toast.LENGTH_LONG).show();
-//                    }
-//                }
-//            }
             }
         }));
 
-        File f = new File(root);
+        String path = savedInstanceState == null ? root : savedInstanceState.getString(STATE_PATH);
+        File f = new File(path);
         showDir(f);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(STATE_PATH, currentPath);
     }
 
     public void onMyItemClick(View view, int position) {
@@ -75,7 +64,6 @@ public class ExplorerActivity extends AppCompatActivity {
         if (item.getFile().isDirectory()) {
             recyclerView.getLayoutManager().scrollToPosition(0);
             showDir(item.getFile());
-            //maybe scroll back when back
         }
         else {
             try {
@@ -96,6 +84,7 @@ public class ExplorerActivity extends AppCompatActivity {
 
     protected void showDir(File dir) {
         this.setTitle(dir.getName());
+        currentPath = dir.getPath();
         new ShowDir().execute(dir);
     }
 

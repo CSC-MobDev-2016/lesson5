@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Very Simple File Manager</string>
+    <string name="open">Открыть</string>
+    <string name="delete">Удалить</string>
+    <string name="rename">Переименовать</string>
+    <string name="element_will_be_deleted">Следующий элемент будет удалён: </string>
+    <string name="element_will_be_renamed">Переименовать следующий файл: </string>
+
 </resources>
