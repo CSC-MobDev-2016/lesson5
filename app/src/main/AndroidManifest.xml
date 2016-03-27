@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.csc.lesson5">
+    package="com.csc.lpaina.lesson5">
 
     <application
         android:allowBackup="true"
