@@ -22,4 +22,15 @@ public class Utils {
             return "";
         }
     }
+
+
+    private static final String[] imageExtensions =  new String[] {"jpg", "png", "gif","jpeg"};
+    public static boolean isImageExtension(String fileName) {
+        for (String extension: imageExtensions)
+            if (fileName.toLowerCase().endsWith(extension)) {
+                return true;
+            }
+
+        return false;
+    }
 }

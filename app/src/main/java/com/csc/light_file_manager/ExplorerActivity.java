@@ -39,7 +39,7 @@ public class ExplorerActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new RVAdapter(getApplicationContext(), this);
+        adapter = new RVAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override

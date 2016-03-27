@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.csc.light_file_manager.items.Item;
 import com.csc.light_file_manager.items.ParentItem;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.Collections;
@@ -121,8 +122,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ItemViewHolder> {
 
     private List<Item> items = Collections.emptyList();
 
-    public RVAdapter(Context context, ExplorerActivity activity) {
-        this.context = context;
+    public RVAdapter(ExplorerActivity activity) {
+        this.context = activity.getApplicationContext();
         this.activity = activity;
     }
 
@@ -158,6 +159,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ItemViewHolder> {
         try {
             File file = item.getFile();
             if (file.isFile()) {
+                if (Utils.isImageExtension(file.getName())) {
+                    Picasso.with(context).load(file).fit().into(holder.icon);
+                    return;
+                }
                 final Intent intent = new Intent(Intent.ACTION_VIEW);
                 String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(item.getName().substring(item.getName().lastIndexOf(".") + 1));
                 intent.setDataAndType(Uri.fromFile(file), mimeType);
