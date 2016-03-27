@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">lesson5</string>
+    <string name="app_name">Файловый менеджер</string>
+    <string name="to_storage">to Storage</string>
+    <string name="to_sdcard">to sdcard</string>
+    <string name="to_sdcard_excuse">Извините, у разработчика нет sdcard, поэтому ввиду отсутствия возможности тестирования доступ закрыт</string>
+    <string name="title_activity_file_chooser">Просмотр директории</string>
+    <string name="open_file">Открыть</string>
+    <string name="rename_file">Переименовать</string>
+    <string name="delete_file">Удалить</string>
+    <string name="cancel">Отменить</string>
+    <string name="choose_action">Выберите действие</string>
+    <string name="inser_new_file_name">Введите новое название (с расширением)</string>
+    <string name="no_handler_notification">No handler for this type of file.</string>
+
 </resources>
