@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">lesson5</string>
+    <string name="app_name">Simple File Manager</string>
+    <string name="error">Error</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="folder_unreadable_error">No read permission for folder %s!</string>
+    <string name="dialog_open">Open</string>
+    <string name="dialog_rename">Rename</string>
+    <string name="dialog_delete">Delete</string>
+    <string name="invalid_filename">New file name is invalid</string>
+    <string name="failed_to_delete">Failed to delete file</string>
+    <string name="swipe_tip">Swipe left or right</string>
+    <string name="no_app_found">No application found to open this file.</string>
+    <string name="error_loading_image">Error loading image %s</string>
+    <string-array name="file_menu">
+        <item>Open</item>
+        <item>Rename</item>
+        <item>Delete</item>
+    </string-array>
 </resources>
+
