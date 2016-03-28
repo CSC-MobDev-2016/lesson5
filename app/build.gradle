@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.csc.lesson5"
+        applicationId "com.csc.jv.FileManager"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
