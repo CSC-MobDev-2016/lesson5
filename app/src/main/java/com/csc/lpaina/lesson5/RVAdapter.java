@@ -36,7 +36,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.FileViewHolder> {
     @Override
     public void onBindViewHolder(FileViewHolder fileViewHolder, int i) {
         FileWrapper fileWrapper = files.get(i);
-        String path = fileWrapper.getPath();
+        String path = fileWrapper.getName();
         fileViewHolder.fileName.setText(path);
 
         if (fileWrapper.isDirectory()) {

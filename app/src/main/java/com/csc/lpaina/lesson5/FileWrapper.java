@@ -26,6 +26,10 @@ class FileWrapper {
         return file.getPath();
     }
 
+    public String getName() {
+        return file.getName();
+    }
+
     public File getFile() {
         return file;
     }
