@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     void getFiles(File f)
     {
         this.setTitle(f.getAbsolutePath());
+        recyclerView.smoothScrollToPosition(0);
 
         new AsyncTask<File, Void, ArrayList<FileItem>>() {
         @Override
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(result);
             files = result;
             adapter.setItems(files);
-            recyclerView.smoothScrollToPosition(0);
+
         }
         @Override
         protected ArrayList<FileItem> doInBackground(File... params) {
@@ -98,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }catch(Exception e) {}
-            finally {}
+            finally {//just i can
+            }
 
             Collections.sort(dir);
             Collections.sort(fls);
