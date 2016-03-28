@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.csc.lesson5"
+        applicationId "com.csc.telezhnaya.filemanager"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
@@ -21,4 +21,6 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:recyclerview-v7:23.2.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">lesson5</string>
+    <string name="app_name">FileManager</string>
+    <string name="icon">Icon</string>
+    <string name="open">Open</string>
+    <string name="delete">Delete</string>
+    <string name="rename">Rename</string>
+    <string name="delete_process">Deleting: </string>
+    <string name="rename_process">Renaming: </string>
 </resources>
