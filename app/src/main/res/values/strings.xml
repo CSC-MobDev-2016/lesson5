@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">lesson5</string>
+    <string name="app_name">File Manager</string>
+    <string name="rename_button">Rename</string>
+    <string name="delete_button">Delete</string>
+    <string name="root">/storage/emulated/0</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="OK_button">OK</string>
 </resources>
