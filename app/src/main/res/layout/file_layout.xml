@@ -8,14 +8,15 @@
               tools:background="@android:color/darker_gray">
 
     <ImageView
+        android:id="@+id/file_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:id="@+id/file_icon"
-        tools:src="@mipmap/ic_launcher"/>
+        tools:src="@android:drawable/ic_search_category_default"/>
 
     <TextView
+        android:id="@+id/file_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -23,7 +24,6 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="?colorPrimary"
         android:textStyle="bold"
-        tools:text="file name"
-        android:id="@+id/file_name"/>
+        tools:text="file name"/>
 
 </LinearLayout>
