@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">lesson5</string>
+    <string name="app_name">File manager</string>
     <string name="file_icon">File icon</string>
     <string name="choose_action">Choose action</string>
     <string name="delete_ok">Successfully deleted</string>
