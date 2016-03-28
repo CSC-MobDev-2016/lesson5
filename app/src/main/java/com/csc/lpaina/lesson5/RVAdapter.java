@@ -2,6 +2,9 @@ package com.csc.lpaina.lesson5;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,20 +12,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import hugo.weaving.DebugLog;
 
-import static android.R.drawable.ic_menu_crop;
+import static android.R.drawable.ic_menu_agenda;
+import static android.R.drawable.ic_menu_slideshow;
 
 @DebugLog
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.FileViewHolder> {
-    private static List<FileWrapper> files;
+    private List<FileWrapper> files;
 
     public RVAdapter(List<FileWrapper> files) {
-        RVAdapter.files = files;
+        this.files = files;
     }
 
     @Override
@@ -32,9 +35,26 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.FileViewHolder> {
 
     @Override
     public void onBindViewHolder(FileViewHolder fileViewHolder, int i) {
-        String path = files.get(i).getAbsolutePath();
+        FileWrapper fileWrapper = files.get(i);
+        String path = fileWrapper.getPath();
         fileViewHolder.fileName.setText(path);
-        fileViewHolder.fileIcon.setImageResource(ic_menu_crop);
+
+        if (fileWrapper.isDirectory()) {
+            fileViewHolder.intent = new Intent(fileViewHolder.context, MainActivity.class);
+            fileViewHolder.intent.putExtra(MainActivity.PATH, fileWrapper.getAbsolutePath());
+            fileViewHolder.fileIcon.setImageResource(ic_menu_slideshow);
+        } else {
+            fileViewHolder.intent = new Intent(Intent.ACTION_VIEW);
+            fileViewHolder.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            fileViewHolder.intent.setDataAndType(Uri.fromFile(fileWrapper.getFile()), fileWrapper.getMimeType());
+            ResolveInfo info = fileViewHolder.context.getPackageManager().resolveActivity(fileViewHolder.intent, 0);
+            try {
+                fileViewHolder.fileIcon.setImageResource(info.getIconResource());
+            } catch (Resources.NotFoundException e) {
+                fileViewHolder.fileIcon.setImageResource(ic_menu_agenda);
+            }
+        }
     }
 
     @Override
@@ -45,10 +65,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.FileViewHolder> {
     }
 
 
-    public static class FileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class FileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final TextView fileName;
         final ImageView fileIcon;
         final CardView cardView;
+        final Context context;
+        Intent intent;
 
         FileViewHolder(View itemView) {
             super(itemView);
@@ -56,14 +78,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.FileViewHolder> {
             fileIcon = (ImageView) itemView.findViewById(R.id.file_icon);
             cardView = (CardView) itemView.findViewById(R.id.card_view);
             cardView.setOnClickListener(this);
+            context = itemView.getContext();
         }
 
         @Override
         public void onClick(View v) {
-            Context context = v.getContext();
-            Toast.makeText(context, "layout: " + getLayoutPosition() + " adapter: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(context, MainActivity.class);
-            intent.putExtra(MainActivity.PATH, files.get(getAdapterPosition()).getAbsolutePath());
             context.startActivity(intent);
         }
     }
