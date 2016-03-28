@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Проводник</string>
+    <string-array name="dialog_array">
+        <item>Открыть</item>
+        <item>Удалить</item>
+        <item>Переименовать</item>
+    </string-array>
+    <string name="selection">Выбор</string>
+    <string name="rename_file">Переименовать файл</string>
+    <string name="delete_file">Удалить файл</string>
+    <string name="ok">Вперед</string>
+    <string name="cancel">Отмена</string>
+    <string name="empty_folder">Пустая папка</string>
+</resources>

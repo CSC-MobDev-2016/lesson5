@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">lesson5</string>
+    <string name="app_name">File Manager</string>
+    <string-array name="dialog_array">
+        <item>Open</item>
+        <item>Delete</item>
+        <item>Selection</item>
+    </string-array>
+    <string name="selection">Selection</string>
+    <string name="rename_file">Rename file</string>
+    <string name="delete_file">Delete file</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="empty_folder">Empty folder</string>
 </resources>
