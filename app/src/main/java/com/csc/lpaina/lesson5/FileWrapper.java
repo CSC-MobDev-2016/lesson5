@@ -9,9 +9,12 @@ public class FileWrapper {
         this.file = file;
     }
 
-    public File getFile() {
+    public String getAbsolutePath() {
+        return file.getAbsolutePath();
+    }
 
-        return file;
+    public String getPath() {
+        return file.getPath();
     }
 
     public void setFile(File file) {
