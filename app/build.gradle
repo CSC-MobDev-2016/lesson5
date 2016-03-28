@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.hugo'
 
 android {
     compileSdkVersion 23
@@ -21,4 +22,6 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:recyclerview-v7:23.2.1'
+    compile 'com.android.support:cardview-v7:23.2.1'
 }
