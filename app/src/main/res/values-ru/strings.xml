@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Файловый менеджер</string>
+    <string name="current_dir">Текущая папка:</string>
+    <string name="no_file">Нет ассоциированых с файлом приложений</string>
+    <string name="read_dir_error">Не могу прочитать содержимое папки</string>
+    <string name="cancel">Отмена</string>
+    <string name="enter_new_name">Введите новое имя:</string>
+    <string name="dest">Адрес для копирования</string>
+    <string name="error">Ошибка</string>
+    <string name="please_wait">Подождите немного...</string>
+    <string name="are_you_sure">Вы уверены?</string>
+    <string name="copy">Копировать</string>
+    <string name="rename">Переименовать</string>
+    <string name="delete">Удалить</string>
+    <string name="done">Готово</string>
+</resources>

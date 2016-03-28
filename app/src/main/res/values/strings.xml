@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">lesson5</string>
+    <string name="app_name">File manager</string>
+    <string name="current_dir">Current directory:</string>
+    <string name="copy">Copy</string>
+    <string name="rename">Rename</string>
+    <string name="delete">Delete</string>
+    <string name="copy_current_path">Copy path to buffer</string>
+    <string name="read_dir_error">I can not load folder content:</string>
+    <string name="no_file">No handler for this type of file</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+    <string name="enter_new_name">Enter new name:</string>
+    <string name="dest">Enter destination path:</string>
+    <string name="error">error</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="done">Done</string>
 </resources>
