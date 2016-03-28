@@ -14,7 +14,6 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -49,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //Log.i(TAG, Environment.getExternalStorageState());
+
+        // For now it works only with embedded external storage
+        // TODO add ability to explore sd card filesystem
 
         if (isExternalStorageAccessable()) {
             if (savedInstanceState != null) {
@@ -188,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (preview == null) {
                     preview = BitmapFactory.decodeResource(getResources(),
-                                                           R.drawable.ic_file_black_48dp);
+                            R.drawable.ic_file_black_48dp);
                 }
 
                 fls.add(
@@ -294,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String constructNewAbsolutePath(Item item, String newFilename) {
         String path = item.getPath();
-        return path.substring(0, path.lastIndexOf('/')+1) + newFilename + item.getExtension();
+        return path.substring(0, path.lastIndexOf('/') + 1) + newFilename + item.getExtension();
     }
 
     private void renameFile(Item item, File newFile) {
