@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String PATH = "PATH";
     private static final String TAG = "MainActivity";
-    private File defaultDirectory = Environment.getExternalStorageDirectory();
+    private final File defaultDirectory = Environment.getExternalStorageDirectory();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

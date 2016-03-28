@@ -22,7 +22,7 @@ import static android.R.drawable.ic_menu_slideshow;
 
 @DebugLog
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.FileViewHolder> {
-    private List<FileWrapper> files;
+    private final List<FileWrapper> files;
 
     public RVAdapter(List<FileWrapper> files) {
         this.files = files;

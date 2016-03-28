@@ -4,14 +4,13 @@ import android.webkit.MimeTypeMap;
 
 import java.io.File;
 
-public class FileWrapper {
-    private File file;
-    private String extension;
-    private String mimeType;
+class FileWrapper {
+    private final File file;
+    private final String mimeType;
 
     public FileWrapper(File file) {
         this.file = file;
-        extension = file.getPath().substring(file.getPath().lastIndexOf('.') + 1);
+        String extension = file.getPath().substring(file.getPath().lastIndexOf('.') + 1);
         mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
     }
 
